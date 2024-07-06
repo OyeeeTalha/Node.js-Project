@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const port = process.env.PORT || 3000;
 const Login = require('./Routes/Login')
-const Auth = require('./Routes/Auth')
+const SignUp = require('./Routes/SignUp')
 
 
 app.set('view engine', 'ejs');
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/Login',Login);
-app.use('/Auth',Auth);
+app.use('/Signup',SignUp);
 
 app.listen(port, () => {
   console.log(`Server running on port http://localhost:${port}/`);
