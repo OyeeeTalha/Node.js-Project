@@ -1,11 +1,18 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
 const port = process.env.PORT || 3000;
 const Login = require('./Routes/Login')
 const SignUp = require('./Routes/SignUp')
 
+
+mongoose
+  .connect('mongodb://localhost:27017/EcommerceSite')
+  .then(() => console.log("DB Connection Successfull!"))
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.set('view engine', 'ejs');
 app.set('Views', path.join(__dirname, 'Views'));
