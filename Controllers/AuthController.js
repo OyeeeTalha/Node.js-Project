@@ -1,28 +1,17 @@
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-class AuthenticationRequiredData{
-    constructor(username ,password){
-        this.Username = username;
-        this.Password = password;
-    }
+async function IsPasswordValid(inputPassword,databasePassword){
+    const passwordMatch = await bcrypt.compare(inputPassword,databasePassword);
+    return passwordMatch;
 }
 
-function IsValidUser(user){
-    if (user instanceof(AuthenticationRequiredData)){
-        userData = Users.find(x => x.Username === user.Username && x.Password === user.Password);
-        return userData != undefined;
-    }
-    else{
-        return false;
-    }
 
+async function GetPasswordHash(password){
+    return await bcrypt.hash(password,saltRounds)
 }
-
-const Users = [];
-Users.push(new AuthenticationRequiredData('Talha','helloworld'));
-Users.push(new AuthenticationRequiredData('rof11','noobplastic'));
-Users.push(new AuthenticationRequiredData('kinger','kingkrlega'));
 
 module.exports = {
-    AuthenticationRequiredData,
-    IsValidUser
-};
+    IsPasswordValid,
+    GetPasswordHash
+}
